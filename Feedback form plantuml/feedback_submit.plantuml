@@ -1,0 +1,38 @@
+@startuml  FeedbackSubmit
+
+actor Actor as actor
+box Client
+participant CaragentApp as app
+participant LoginScreen as loginScreen
+participant ProfileScreen as profileScreen
+participant FeedbackFormScreen as feedackScreen
+participant FeedbackSuccessScreen as feedbackSuccessScreen
+end box
+participant FirebaseRemoteConfig as remoteConfig
+participant JiraRestService as jiraRestService
+participant ExtenalCaragentProject as caragentJiraProject
+
+autonumber
+
+actor->app: Open app
+alt User loggedIn
+        app->profileScreen: User open profile screen
+else User not loggedIn
+        app->loginScreen: User will goto login screen    
+end
+
+profileScreen->feedackScreen: User goto feedbackform screen
+loginScreen->feedackScreen: User goto feedbackform screen
+feedackScreen->feedackScreen: Load app pref user data \n(name,email, phonenumber)
+feedackScreen->remoteConfig: Fetch jira credentials from remoteconfig
+alt Remote config return jira credentials
+    feedackScreen->feedackScreen: keep credentials
+else fetch failed   
+    feedackScreen->feedackScreen: Show error dialog
+    feedackScreen->feedackScreen: User click dialog Goback button, exit Feedbeack Screen
+end    
+feedackScreen<-remoteConfig: Send remoteConfig data
+
+
+
+@enduml

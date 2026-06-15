@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter analyze *)",
+      "mcp__atlassian__getAccessibleAtlassianResources",
+      "mcp__atlassian__getJiraIssue",
+      "Bash(git fetch *)",
+      "Bash(git checkout *)"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "atlassian"
+  ]
+}
